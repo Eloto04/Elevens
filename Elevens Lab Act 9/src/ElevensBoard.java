@@ -54,9 +54,9 @@ public class ElevensBoard extends Board {
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
 		
+		return containsJQK(selectedCards);
 		
-		
-		return true;
+		//return false;
 	}
 
 	/**
@@ -103,9 +103,15 @@ public class ElevensBoard extends Board {
 	private boolean containsJQK(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
 		//check to see if you have a jack, queen AND king!
+		//parameter is the indexes of the cards selected
+		//looks on the board for 3 cards
 		
+		if(selectedCards.size()==3){
+			if(cardAt[selectedCards.get(0)].pointValue==0){
+				return true;
+			}
+		}
 		
-		
-		return true;
+		return false;
 	}
 }
