@@ -54,7 +54,7 @@ public class ElevensBoard extends Board {
 	public boolean isLegal(List<Integer> selectedCards) {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
 		
-		return containsJQK(selectedCards);
+		return containsJQK(selectedCards) || containsPairSum11(selectedCards);
 		
 		//return false;
 	}
@@ -87,9 +87,22 @@ public class ElevensBoard extends Board {
 		// use cardAt
 		// a nested loop that checks ALL pairs
 		
+		if(selectedCards.size()!=2) return false;
 		
+		Card[] c = new Card[9];
 		
-		return true;
+		for(int i = 0; i < c.length; i++){
+			c[i] = cardAt(i);
+		}
+		
+		if(selectedCards.size()==2){
+			if(c[selectedCards.get(0)].pointValue()+
+					c[selectedCards.get(1)].pointValue()==11){
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 	/**
@@ -106,12 +119,44 @@ public class ElevensBoard extends Board {
 		//parameter is the indexes of the cards selected
 		//looks on the board for 3 cards
 		
+		if(selectedCards.size()!=3) return false;
+		
+		Card[] c = new Card[9];
+		
+		for(int i = 0; i < c.length; i++){
+			c[i] = cardAt(i);
+		}
+		
+		String[] rankss = new String[3];
+		rankss[0] = "jack";
+		rankss[0] = "queen";
+		rankss[0] = "king";
+		
+		//so far it responds to any triplet of face cards
+		//make an arraylist containing possible facecards
+		//for example if one of the three cards is a jack, jack gets
+		//removed from the arraylist
+		
+		
+		
 		if(selectedCards.size()==3){
-			if(cardAt[selectedCards.get(0)].pointValue==0){
-				return true;
+			if(!(c[selectedCards.get(0)].pointValue()+
+					c[selectedCards.get(1)].pointValue()+
+					c[selectedCards.get(2)].pointValue()==0)){
+				return false;
 			}
 		}
 		
-		return false;
-	}
+		for(int i = 0; i < 2; i++){
+			for(int j = i+1; j < 3; j++){
+				if(c[i].rank().equals(c[j].rank())){
+					return false;
+				}
+			}
+		}
+		
+		return true;
+		
+}
+	
 }
