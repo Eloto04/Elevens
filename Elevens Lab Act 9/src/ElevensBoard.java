@@ -118,8 +118,11 @@ public class ElevensBoard extends Board {
 		//check to see if you have a jack, queen AND king!
 		//parameter is the indexes of the cards selected
 		//looks on the board for 3 cards
-		
 		if(selectedCards.size()!=3) return false;
+		
+		boolean hasJack = false;
+		boolean hasQueen = false;
+		boolean hasKing = false;
 		
 		Card[] c = new Card[9];
 		
@@ -127,35 +130,36 @@ public class ElevensBoard extends Board {
 			c[i] = cardAt(i);
 		}
 		
-		String[] rankss = new String[3];
-		rankss[0] = "jack";
-		rankss[0] = "queen";
-		rankss[0] = "king";
+		Card[] sc = new Card[3];
 		
+		sc[0] = c[selectedCards.get(0)];
+		sc[1] = c[selectedCards.get(1)];
+		sc[2] = c[selectedCards.get(2)];
+	
 		//so far it responds to any triplet of face cards
 		//make an arraylist containing possible facecards
 		//for example if one of the three cards is a jack, jack gets
 		//removed from the arraylist
 		
-		
-		
-		if(selectedCards.size()==3){
-			if(!(c[selectedCards.get(0)].pointValue()+
-					c[selectedCards.get(1)].pointValue()+
-					c[selectedCards.get(2)].pointValue()==0)){
-				return false;
+		for(int i = 0; i < 3; i++) {
+			if(sc[i].rank().equals("jack")) {
+				hasJack = true;
 			}
 		}
 		
-		for(int i = 0; i < 2; i++){
-			for(int j = i+1; j < 3; j++){
-				if(c[i].rank().equals(c[j].rank())){
-					return false;
-				}
+		for(int i = 0; i < 3; i++) {
+			if(sc[i].rank().equals("queen")) {
+				hasQueen = true;
 			}
 		}
 		
-		return true;
+		for(int i = 0; i < 3; i++) {
+			if(sc[i].rank().equals("king")) {
+				hasKing = true;
+			}
+		}
+		
+		return hasJack && hasQueen && hasKing;
 		
 }
 	
