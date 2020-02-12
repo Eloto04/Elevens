@@ -69,7 +69,43 @@ public class ElevensBoard extends Board {
 	 */
 	public boolean anotherPlayIsPossible() {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 9 *** */
-		return true;
+		
+		Card[] c = new Card[9];
+		
+		boolean hasJack = false;
+		boolean hasQueen = false;
+		boolean hasKing = false;
+		
+		if(deckSize()<=9) return true;
+		
+		for(int i = 0; i < c.length; i++){
+			c[i] = cardAt(i);
+		}
+		
+		//need to figure out a way to continue this process when 
+		//there are less than 9 cards left
+		
+		for(int i = 0; i < c.length-1; i++) {
+			for(int j = i+1; j < c.length; j++) {
+				if(c[i].pointValue()+c[j].pointValue()==11) {
+					return true;
+				}
+			}
+		}
+		
+		for(int i = 0; i < c.length; i++) {
+			if(c[i].rank().contentEquals("jack")) {
+				hasJack = true;
+			}
+			if(c[i].rank().contentEquals("queen")) {
+				hasQueen = true;
+			}
+			if(c[i].rank().contentEquals("king")) {
+				hasKing = true;
+			}
+		}
+		
+		return hasJack && hasQueen && hasKing;
 	}
 
 	/**
@@ -95,9 +131,14 @@ public class ElevensBoard extends Board {
 			c[i] = cardAt(i);
 		}
 		
+		Card[] sc = new Card[2];
+		
+		sc[0] = c[selectedCards.get(0)];
+		sc[1] = c[selectedCards.get(1)];
+		
 		if(selectedCards.size()==2){
-			if(c[selectedCards.get(0)].pointValue()+
-					c[selectedCards.get(1)].pointValue()==11){
+			if(sc[0].pointValue()+
+					sc[1].pointValue()==11){
 				return true;
 			}
 		}
@@ -145,15 +186,9 @@ public class ElevensBoard extends Board {
 			if(sc[i].rank().equals("jack")) {
 				hasJack = true;
 			}
-		}
-		
-		for(int i = 0; i < 3; i++) {
 			if(sc[i].rank().equals("queen")) {
 				hasQueen = true;
 			}
-		}
-		
-		for(int i = 0; i < 3; i++) {
 			if(sc[i].rank().equals("king")) {
 				hasKing = true;
 			}
